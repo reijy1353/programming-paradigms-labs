@@ -36,6 +36,9 @@ BLACK = "black"
 
 class Calculator(tk.Tk):
     def __init__(self) -> None:
+        """Constructor
+        Inherit properties from the tkinter Tk
+        """
         super().__init__()
         self.title("Calculator")
         self.resizable(False, False)
@@ -58,10 +61,12 @@ class Calculator(tk.Tk):
         self.memory = 0
         self.is_hex = False
 
+        # Label size and build_gui() call
         self.label.grid(row=0, column=0, columnspan=COLUMN_COUNT, sticky="we")
         self.build_gui()
 
     def build_gui(self):
+        """Get all the symbols in row and columns and adds them to the app grid"""
         for row in range(ROW_COUNT):
             for column in range(COLUMN_COUNT):
                 value = BUTTON_VALUES[row][column]
@@ -88,6 +93,9 @@ class Calculator(tk.Tk):
                     button.config(foreground=WHITE, background=HEATHER_GRAY)
 
     def calculate(self):
+        """Method that makes the calculus
+        Has self.a written already, and takes in self.b what's already in label
+        """
         self.b = self.label["text"]
         try:
             num_A = float(self.a)
@@ -109,17 +117,21 @@ class Calculator(tk.Tk):
             self.label["text"] = "Error"
 
     def clear_all(self):
+        """Resets variables like self.[a, b, operator, is_hex]"""
         self.a = "0"
         self.b = None
         self.operator = None
         self.is_hex = False
 
     def remove_zero_decimal(self, num):
+        """Tries to remove the '.0', as it isn't needed"""
         if num % 1 == 0:
             num = int(num)
         return str(num)
 
     def button_clicked(self, value):
+        """Function that reads all the buttons (symbols) from the calculator itself"""
+        # RIGHT symbols
         if value in RIGHT_SYMBOLS:
             if value == "=":
                 if self.a is not None and self.operator is not None:
@@ -135,6 +147,7 @@ class Calculator(tk.Tk):
                 self.operator = value
                 self.new_entry = True
 
+        # TOP symbols
         elif value in TOP_SYMBOLS:
             if value == "AC":
                 self.clear_all()
@@ -149,6 +162,8 @@ class Calculator(tk.Tk):
                 self.label["text"] = self.remove_zero_decimal(
                     float(self.label["text"]) / 100
                 )
+
+        # MEMORY symbols
         elif value in MEM_SYMBOLS:
             try:
                 current = float(self.label["text"])
@@ -165,6 +180,7 @@ class Calculator(tk.Tk):
             elif value == "M-":
                 self.memory -= current
 
+        # SCIENTIFIC symbols
         elif value in SCI_SYMBOLS:
             try:
                 current = float(self.label["text"])
@@ -190,6 +206,8 @@ class Calculator(tk.Tk):
                         self.label["text"] = format(result, "X")
                         self.is_hex = True
                         self.new_entry = True
+                        # Use as a goto (I'm lazy to rewrite it in another block
+                        #   or repeat the code)
                         raise StopIteration
                     self.is_hex = False
 
@@ -201,6 +219,7 @@ class Calculator(tk.Tk):
                 self.label["text"] = "Error"
                 self.is_hex = False
 
+        # Read digits, dot and sqrt()
         else:
             if value == ".":
                 if value not in self.label["text"]:
@@ -219,6 +238,10 @@ class Calculator(tk.Tk):
                     self.label["text"] = "Error"
 
     def center_window(self):
+        """
+        This method simply centers the windows, using a special formula
+        """
+
         # Get window and screen width and height
         window_height = self.winfo_height()
         window_width = self.winfo_width()
