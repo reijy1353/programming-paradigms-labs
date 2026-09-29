@@ -1,5 +1,5 @@
 import tkinter as tk
-from math import sqrt, sin, cos, tan, log, log10, radians
+from math import cos, log, log10, radians, sin, sqrt, tan
 
 # Button on the calculator (add more for higher grade)
 BUTTON_VALUES = [
@@ -65,15 +65,16 @@ class Calculator(tk.Tk):
         for row in range(ROW_COUNT):
             for column in range(COLUMN_COUNT):
                 value = BUTTON_VALUES[row][column]
+                is_wide_label = value in SCI_SYMBOLS or value in MEM_SYMBOLS
                 button = tk.Button(
                     self,
                     text=value,
-                    font=("Arial", 30),
+                    font=("Arial", 18 if is_wide_label else 30),
                     width=COLUMN_COUNT - 1,
                     height=1,
                     command=lambda value=value: self.button_clicked(value),
                 )
-                button.grid(row=row + 1, column=column)
+                button.grid(row=row + 1, column=column, padx=1, pady=1)
 
                 if value in TOP_SYMBOLS:
                     button.config(foreground=BLACK, background=LIGHT_GRAY)
@@ -178,7 +179,7 @@ class Calculator(tk.Tk):
                 elif value == "ln":
                     result = log(current)
                 elif value == "x²":
-                    result = current ** 2
+                    result = current**2
                 elif value == "1/x":
                     result = 1 / current
                 elif value == "HEX":
