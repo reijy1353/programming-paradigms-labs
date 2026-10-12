@@ -258,7 +258,7 @@ class Calculator(tk.Tk):
 
 
 app = Calculator()
-app.update()
+app.updae()
 app.center_window()
 
 app.mainloop()
