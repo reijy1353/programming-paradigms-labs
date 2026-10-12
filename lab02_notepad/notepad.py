@@ -4,7 +4,7 @@ import tkinter as tk
 import tkinter.font as tkfont
 from tkinter import colorchooser, filedialog, messagebox, ttk
 
-# Menu layout: (label, method name, shown shortcut, key binding). None is a separator
+# Menu layout: (label, method name, shown shortcut, key binding). None = separator
 MENU_ITEMS = [
     (
         "File",
@@ -126,24 +126,29 @@ class FindReplaceDialog(tk.Toplevel):
             return False
 
         # Going up starts at the beginning of the selection, going down at its end
+        # If nothing is found that way, the search wraps around to the other end
         backwards = self.direction.get() == "up"
         has_selection = bool(text.tag_ranges("sel"))
         if backwards:
             start = "sel.first" if has_selection else "insert"
-            stop = "1.0"
+            searches = [(start, "1.0"), ("end", "1.0")]
         else:
             start = "sel.last" if has_selection else "insert"
-            stop = "end"
+            searches = [(start, "end"), ("1.0", "end")]
 
         length = tk.IntVar()
-        position = text.search(
-            query,
-            start,
-            stopindex=stop,
-            backwards=backwards,
-            nocase=not self.match_case.get(),
-            count=length,
-        )
+        for attempt, (start, stop) in enumerate(searches):
+            position = text.search(
+                query,
+                start,
+                stopindex=stop,
+                backwards=backwards,
+                nocase=not self.match_case.get(),
+                count=length,
+            )
+            if position:
+                break
+
         if not position:
             self.status["text"] = "Not found"
             return False
@@ -153,7 +158,7 @@ class FindReplaceDialog(tk.Toplevel):
         text.tag_add("sel", position, end)
         text.mark_set("insert", position if backwards else end)
         text.see(position)
-        self.status["text"] = ""
+        self.status["text"] = "Wrapped around" if attempt else ""
         return True
 
     def replace_range(self, text, start, end):
