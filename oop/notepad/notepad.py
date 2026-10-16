@@ -60,7 +60,7 @@ FONT_SIZES = [8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 72]
 # Every style is a separate tag, so they can overlap on the same text
 # (family:Arial, size:14, color:#ff0000, bold, italic, underline)
 # font:... is the tag that really draws the font, it is made from the others
-# (Tk can use only one font for a character)
+# (Tk can use only one font for a character :P
 FAMILY_PREFIX = "family:"
 SIZE_PREFIX = "size:"
 COLOR_PREFIX = "color:"
