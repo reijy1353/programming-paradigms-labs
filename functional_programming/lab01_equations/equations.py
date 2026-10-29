@@ -66,7 +66,7 @@ def f_double_sum(n: int) -> int:
 
 # 3rd pard lists
 def get_n(l: list, n: int):
-    """Get the n-th element of L (counting from 1), None if there isn't one"""
+    """Get the n-th element of L (starting with 1 not the usual 0), None if there isn't one"""
     # Empty list or bad n, no element
     if not l or n < 1:
         return None
@@ -111,13 +111,16 @@ def func_list(l1: list, l2: list, F) -> list:
 
 # Local testing
 if __name__ == "__main__":
+    print("Part 1")
     print(squares_list(5))
     print(factorials_list(5))
 
+    print("\nPart 2")
     print(f_mult(4, 3))
     print(f_sum(5))
     print(f_double_sum(3))
 
+    print("\nPart 3")
     print(get_n(["a", "b", "c"], 2))
     print(sett([1, 2, 1, 3, 2, 4]))
     print(odd_even([1, 2, 3, 4, 5]))
