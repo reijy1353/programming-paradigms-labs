@@ -1,6 +1,3 @@
-# Lab: functional programming (no loops, no changing variables, only recursion)
-
-
 # First part O_O
 def squares_list(n: int) -> list[int]:
     """List of the squares of the natural numbers from 1 to n"""
@@ -68,48 +65,48 @@ def f_double_sum(n: int) -> int:
 
 
 # 3rd pard lists
-def getN(L: list, n: int):
+def get_n(l: list, n: int):
     """Get the n-th element of L (counting from 1), None if there isn't one"""
     # Empty list or bad n, no element
-    if not L or n < 1:
+    if not l or n < 1:
         return None
 
     # The first element is the answer for n = 1
     if n == 1:
-        return L[0]
+        return l[0]
 
     # Skip the first element and look for n - 1 in the rest
-    return getN(L[1:], n - 1)
+    return get_n(l[1:], n - 1)
 
 
-def sett(L: list) -> list:
+def sett(l: list) -> list:
     """Keep only the first occurrence of every atom of L"""
     # Base case, empty list
-    if not L:
+    if not l:
         return []
 
     # First atom, then the same for the rest without that atom (so it won't repeat)
-    return [L[0]] + sett(list(filter(lambda atom: atom != L[0], L[1:])))
+    return [l[0]] + sett(list(filter(lambda atom: atom != l[0], l[1:])))
 
 
-def oddEven(L: list) -> list:
+def odd_even(l: list) -> list:
     """Swap the neighbors on odd and even positions (1-2, 3-4, ...)"""
     # 0 or 1 elements, nothing to swap
-    if len(L) < 2:
-        return L
+    if len(l) < 2:
+        return l
 
     # Swap the first two, then do the same for the rest
-    return [L[1], L[0]] + oddEven(L[2:])
+    return [l[1], l[0]] + odd_even(l[2:])
 
 
-def funcList(L1: list, L2: list, F) -> list:
+def func_list(l1: list, l2: list, F) -> list:
     """Apply F to the atoms of L1 and L2 that are on the same position"""
     # Stop when one of the lists ends
-    if not L1 or not L2:
+    if not l1 or not l2:
         return []
 
     # F on the first pair, then the same for the rest
-    return [F(L1[0], L2[0])] + funcList(L1[1:], L2[1:], F)
+    return [F(l1[0], l2[0])] + func_list(l1[1:], l2[1:], F)
 
 
 # Local testing
@@ -121,7 +118,7 @@ if __name__ == "__main__":
     print(f_sum(5))
     print(f_double_sum(3))
 
-    print(getN(["a", "b", "c"], 2))
+    print(get_n(["a", "b", "c"], 2))
     print(sett([1, 2, 1, 3, 2, 4]))
-    print(oddEven([1, 2, 3, 4, 5]))
-    print(funcList([1, 2, 3], [10, 20, 30], lambda a, b: a + b))
+    print(odd_even([1, 2, 3, 4, 5]))
+    print(func_list([1, 2, 3], [10, 20, 30], lambda a, b: a + b))
