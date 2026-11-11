@@ -42,7 +42,7 @@ def free_squares(piece, squares, attacks):
 
 def with_piece(piece, all_placements):
     """Add the piece at the start of every placement"""
-    return list(map(lambda placement: [piece] + placement, all_placements))
+    return list(map(lambda placement: [piece] + placement, all_placements)) # noqa: C417
 
 
 def placements(squares, attacks, size):
@@ -91,7 +91,7 @@ def knight_moves(square, n):
     return list(
         filter(
             lambda s: 0 <= s[0] < n and 0 <= s[1] < n,
-            map(lambda jump: (square[0] + jump[0], square[1] + jump[1]), KNIGHT_JUMPS),
+            map(lambda jump: (square[0] + jump[0], square[1] + jump[1]), KNIGHT_JUMPS), # noqa: C417
         )
     )
 
@@ -131,7 +131,7 @@ def board_text(placement, n):
     return "\n".join(
         map(
             lambda row: " ".join(
-                map(lambda col: "X" if (row, col) in placement else ".", range(n))
+                map(lambda col: "X" if (row, col) in placement else ".", range(n)) # noqa: C417
             ),
             range(n),
         )
@@ -143,7 +143,7 @@ def tour_text(path, n):
     return "\n".join(
         map(
             lambda row: " ".join(
-                map(lambda col: str(path.index((row, col)) + 1).rjust(2), range(n))
+                map(lambda col: str(path.index((row, col)) + 1).rjust(2), range(n)) # noqa: C417
             ),
             range(n),
         )
