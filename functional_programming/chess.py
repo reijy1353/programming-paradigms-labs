@@ -1,3 +1,5 @@
+# ruff: noqa: C417
+
 from itertools import product
 
 # Size of the board
@@ -42,7 +44,7 @@ def free_squares(piece, squares, attacks):
 
 def with_piece(piece, all_placements):
     """Add the piece at the start of every placement"""
-    return list(map(lambda placement: [piece] + placement, all_placements)) # noqa: C417
+    return list(map(lambda placement: [piece] + placement, all_placements))
 
 
 def placements(squares, attacks, size):
@@ -91,7 +93,7 @@ def knight_moves(square, n):
     return list(
         filter(
             lambda s: 0 <= s[0] < n and 0 <= s[1] < n,
-            map(lambda jump: (square[0] + jump[0], square[1] + jump[1]), KNIGHT_JUMPS), # noqa: C417
+            map(lambda jump: (square[0] + jump[0], square[1] + jump[1]), KNIGHT_JUMPS),
         )
     )
 
@@ -131,7 +133,7 @@ def board_text(placement, n):
     return "\n".join(
         map(
             lambda row: " ".join(
-                map(lambda col: "X" if (row, col) in placement else ".", range(n)) # noqa: C417
+                map(lambda col: "X" if (row, col) in placement else ".", range(n))
             ),
             range(n),
         )
@@ -143,7 +145,7 @@ def tour_text(path, n):
     return "\n".join(
         map(
             lambda row: " ".join(
-                map(lambda col: str(path.index((row, col)) + 1).rjust(2), range(n)) # noqa: C417
+                map(lambda col: str(path.index((row, col)) + 1).rjust(2), range(n))
             ),
             range(n),
         )
