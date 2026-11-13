@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # Result: 5
 
     # Sarcina 2
-    # nested_list = matrix
+    # De asemenea folosim lista matrix
     print("Sarcina 2: ", end="")
     print(list(unpack_list(matrix)))
     # Result: [1, 2, 3, 4, 5, 2, 1, 3, 4, 5, 2, 3, 1, 4, 5, 2, 3, 4, 1, 5, 2, 3, 4, 5, 1]
