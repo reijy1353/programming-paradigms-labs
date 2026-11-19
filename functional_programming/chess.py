@@ -11,7 +11,7 @@ KNIGHT_JUMPS = [(1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1), (-2, 1), (
 
 # All squares
 def all_squares(n):
-    """All the squares of an n x n board as (row, column), row by row"""
+    """All the squares of an n*n board as (row, column), row by row"""
     return list(product(range(n), repeat=2))
 
 
